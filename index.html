@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pan Otaku - ¡Cartas Completas!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -11,7 +11,7 @@
             --pink-dark: #fb6f92;
             --cream: #fff0f3;
             --white: #ffffff;
-            --shadow: rgba(251, 111, 146, 0.2);
+            --shadow: rgba(251, 111, 146, 0.3);
         }
 
         * {
@@ -23,11 +23,12 @@
 
         body {
             background-color: var(--cream);
-            color: #444;
+            color: #333;
             overflow-x: hidden;
+            width: 100%;
         }
 
-        /* Fondo de Kirby flotante */
+        /* Fondo de Kirby */
         body::before {
             content: '';
             position: fixed;
@@ -36,7 +37,7 @@
             width: 100%;
             height: 100%;
             background: url('https://www.transparentpng.com/download/kirby/Y7nK8v-kirby-cute-transparent.png') no-repeat;
-            background-size: 200px;
+            background-size: 150px;
             background-position: bottom right;
             opacity: 0.1;
             z-index: -1;
@@ -47,6 +48,7 @@
             background: var(--white);
             padding: 1rem 5%;
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 15px var(--shadow);
@@ -56,7 +58,7 @@
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: var(--pink-dark);
             display: flex;
@@ -64,111 +66,107 @@
             gap: 10px;
         }
 
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+
         nav a {
             text-decoration: none;
             color: var(--pink-dark);
-            margin-left: 20px;
+            font-size: 0.9rem;
             font-weight: 600;
             transition: 0.3s;
         }
 
-        nav a:hover {
-            color: #ff8fab;
-        }
-
-      
+        /* HERO - Ajustado para móviles */
         .hero {
-            height: 80vh;
+            min-height: 60vh; /* Un poco menos alto para dar protagonismo a las cartas */
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(255, 175, 204, 0.4), rgba(255, 255, 255, 0.4)), 
+            background: linear-gradient(rgba(255, 175, 204, 0.5), rgba(255, 255, 255, 0.5)), 
                         url('Fondo.jpg');
             background-size: cover;
             background-position: center;
-            color: var(--white);
+            padding: 20px;
         }
 
         .hero-content {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
-            padding: 3rem;
+            padding: 2rem 1.5rem;
             border-radius: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 8px 32px var(--shadow);
+            max-width: 90%;
         }
 
         .hero h1 {
-            font-size: 4rem;
-            text-shadow: 2px 2px 10px var(--pink-dark);
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            color: var(--pink-dark);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
         }
 
         .hero p {
-            font-size: 1.5rem;
-            color: rgb(255, 0, 0 );
-            font-weight: bold;
-            background: white;
-            display: inline-block;
-            padding: 5px 20px;
-            border-radius: 50px;
+            font-size: 0.95rem;
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 10px;
         }
 
-        /* Productos */
+        /* SECCIÓN MENÚ - CARTAS COMPLETAS */
         .section {
-            padding: 5rem 10%;
+            padding: 4rem 5%;
             text-align: center;
         }
 
         .section h2 {
             color: var(--pink-dark);
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .section h2::after {
-            content: '⭐';
-            position: absolute;
-            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas anchas */
+            gap: 40px; /* Más espacio entre cartas */
+            justify-items: center; /* Centra las cartas en su columna */
         }
 
         .card {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px var(--shadow);
-            transition: transform 0.3s;
-            border: 2px solid transparent;
+            background: none; /* Sin fondo blanco para que la carta sea la protagonista */
+            padding: 0;
+            border-radius: 0; /* Sin bordes redondeados en la tarjeta, la carta ya los trae */
+            box-shadow: none; /* Sin sombra en la tarjeta */
+            border: none;
+            overflow: visible; /* Importante para que no corte nada */
+            transition: transform 0.3s ease;
+            max-width: 400px; /* Ancho máximo para que no se deforme en PC */
+            width: 100%;
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--pink-primary);
+            transform: scale(1.05); /* Efecto de zoom en lugar de desplazamiento */
         }
 
+        /* Estilos para que la carta se vea COMPLETA y GRANDE */
         .card img {
             width: 100%;
-            border-radius: 15px;
-            margin-bottom: 1rem;
+            height: auto; /* Altura automática para mostrarse completa */
+            display: block;
+            border-radius: 15px; /* Redondeado sutil para la imagen misma */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* Sombra suave a la carta */
         }
 
-        .card h3 {
-            color: var(--pink-dark);
-            margin-bottom: 10px;
-        }
-
-        /* Social Media */
+        /* Redes Sociales */
         .social-links {
             background: var(--pink-primary);
-            padding: 3rem;
+            padding: 3rem 1rem;
             text-align: center;
             color: white;
         }
@@ -176,70 +174,76 @@
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 25px;
         }
 
         .social-icons a {
             color: white;
             font-size: 2.5rem;
-            transition: 0.3s;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
         .social-icons a:hover {
             color: var(--pink-dark);
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
 
         footer {
             background: var(--pink-dark);
             color: white;
             text-align: center;
-            padding: 1rem;
+            padding: 1.5rem;
+            font-size: 0.85rem;
         }
 
-        /* Botón Flotante de Kirby (Volver arriba) */
-        .btn-kirby {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #ffc8dd;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            cursor: pointer;
-            border: 3px solid white;
-        }
+        /* MEDIA QUERIES PARA CELULARES */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 1rem;
+            }
+            
+            nav {
+                width: 100%;
+                justify-content: center;
+                gap: 20px;
+            }
 
+            .grid {
+                grid-template-columns: 1fr; /* Una sola columna en cel */
+                gap: 30px;
+                padding: 0 10px; /* Pequeño padding lateral */
+            }
+
+            .card {
+                max-width: 90%; /* Que ocupe casi todo el ancho en cel */
+            }
+        }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">
-            <i class=""></i>Pan Otaku 
+            <i class="fas fa-utensils"></i> Pan Otaku 
         </div>
         <nav>
             <a href="#">Inicio</a>
             <a href="#menu">Menú</a>
             <a href="#social">Redes</a>
-            <a href="#">Contacto</a>
         </nav>
     </header>
 
     <section class="hero">
         <div class="hero-content">
             <h1>⛩️ ¡BIENVENIDO A PAN OTAKU! ⛩️</h1>
-            <p>El spot donde tu pasión y el sabor suben de nivel.<br>
-¿Buscas el lugar perfecto para ser tú mismo? En Pana Otaku tenemos todo listo para que vivas una experiencia legendaria:<br>
-PARA EL HAMBRE: Nuestras brutales Hamburguesas de Alitas y Boneless 🍔🍗 (¡Puro poder en cada bocado!).<br>
-PARA EL DESMADRE: Retas en Consolas, los mejores Juegos de Mesa y música que te hará sentir en el mejor opening de la temporada 🎧🎮.<br>
-EL AMBIENTE: El refugio ideal para la comunidad con la mejor vibra y mucha cultura geek.
-<br>¡Deja de ser un NPC y únete a la partida! 🚀</p>
+            <p>El spot donde tu pasión y el sabor suben de nivel.</p>
+            <p><b>🍔 Hamburguesas, Alitas y Boneless</b></p>
+            <p>🎮 Retas en consolas y cultura geek.</p>
+            <p style="background: var(--pink-dark); color: white; border-radius: 20px; padding: 8px 18px; display: inline-block; margin-top: 15px; font-weight: bold;">¡Únete a la partida! 🚀</p>
         </div>
     </section>
 
@@ -247,25 +251,19 @@ EL AMBIENTE: El refugio ideal para la comunidad con la mejor vibra y mucha cultu
         <h2>Nuestras Especialidades</h2>
         <div class="grid">
             <div class="card">
-                <img src="a.png" alt="">
-                <h3></h3>
-                <p></p>
+                <img src="a.png" alt="Carta Combo 1">
             </div>
             <div class="card">
-                <img src="o.png" alt="Donas">
-                <h3></h3>
-                <p></p>
+                <img src="o.png" alt="Carta Combo 7">
             </div>
             <div class="card">
-                <img src="si.png" alt="Pastel">
-                <h3></h3>
-                <p></p>
+                <img src="si.png" alt="Carta Combo 9">
             </div>
         </div>
     </section>
 
     <section class="social-links" id="social">
-        <h2>¡Síguenos en nuestras redes!</h2>
+        <h2>¡Síguenos! ⭐</h2>
         <p>Entérate de los nuevos lanzamientos y dinámicas.</p>
         <div class="social-icons">
             <a href="https://www.instagram.com/panotaku6?igsh=MTlqb2lsZW1zeW9ycQ=="><i class="fab fa-instagram"></i></a>
@@ -276,9 +274,8 @@ EL AMBIENTE: El refugio ideal para la comunidad con la mejor vibra y mucha cultu
     </section>
 
     <footer>
+        <p>&copy; 2026 Pan Otaku. Todos los derechos reservados.</p>
     </footer>
-
-  
 
 </body>
 </html>
